@@ -10,6 +10,8 @@ pages = [287, 383, 445, 78, 108, 66]
 
 url = 'https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=100#&date=%2000:00:00&page=1'
 
+headers={'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'}
+
 options = webdriver.ChromeOptions()
 options.add_argument('lang=ko_KR')
 options.add_argument('--no-sandbox')
@@ -17,7 +19,7 @@ options.add_argument('--disable-dev-shm-usage')
 options.add_argument('disable-gpu')
 driver = webdriver.Chrome('./chromedriver', options=options)
 df_titles = pd.DataFrame()
-for i in range(0, 6):
+for i in range(0, 1):
     titles = []
     for j in range(1,pages[i]+1):
         url = 'https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=10{}#&date=%2000:00:00&page={}'.format(i, j)
@@ -60,22 +62,15 @@ for i in range(0, 6):
     df_titles = pd.concat([df_titles, df_section_titles], ignore_index=True)
     df_titles.to_csv('./crawling_data_{}_{}.csv'.format(category[i], j), index=False)
     titles = []
-df_section_titles = pd.DataFrame(titles, columns=['titles'])
-df_section_titles['category'] = category[i]
-df_titles = pd.concat([df_titles, df_section_titles], ignore_index=True)
-df_titles.to_csv('./crawling_data.csv', index=False)
-driver.close()
+# df_section_titles = pd.DataFrame(titles, columns=['titles'])
+# df_section_titles['category'] = category[i]
+# df_titles = pd.concat([df_titles, df_section_titles], ignore_index=True)
+# df_titles.to_csv('./crawling_data.csv', index=False)
+# driver.close()
 
 
 #//*[@id="section_body"]/ul[3]/li[1]/dl/dt/a
 #//*[@id="section_body"]/ul[2]/li[5]/dl/dt[2]/a
-
-
-
-
-
-
-
 
 
 
